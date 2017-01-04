@@ -12,9 +12,11 @@ RUN requirements="libmcrypt-dev g++ libicu-dev git unzip" \
 
 COPY ./composer_install.sh /usr/src/cakephp/
 WORKDIR /usr/src/cakephp
-RUN /bin/bash ./composer_install.sh
+RUN /bin/bash ./composer_install.sh && rm composer_install.sh
 
 RUN php composer.phar create-project --prefer-dist cakephp/app \
     --keep-vcs --no-interaction my_cake_app 
+
+EXPOSE 8765
 
 CMD ["/bin/bash"]
